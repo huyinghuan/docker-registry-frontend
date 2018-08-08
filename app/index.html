@@ -28,10 +28,7 @@
 
     <div class="container">
 
-      <div class="masthead">
-        <h3 class="text-muted">Docker Registry Frontend</h3>
-      </div>
-
+      <home-topnav></home-topnav>      
       <main ng-view></main>
 
       <footer>
@@ -79,7 +76,7 @@
     <script src="main-controller.js"></script>
 
     <script src="home/home-controller.js"></script>
-
+    <script src="home/home-top-nav-directive.js"></script>
     <script src="repository/repository-detail-controller.js"></script>
     <script src="repository/delete-repository-controller.js"></script>
     <script src="repository/repository-list-controller.js"></script>
@@ -96,6 +93,7 @@
     <script src="services/registry-services.js"></script>
     <script src="services/app-version-services.js"></script>
     <script src="services/app-mode-services.js"></script>
+    
     <!-- endbuild -->
 </body>
 </html>

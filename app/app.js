@@ -36,7 +36,8 @@ angular
     'app-mode-services',
     'smart-table',
     'angular.filter',
-    'ui.checkbox'
+    'ui.checkbox',
+    "home-top-nav-directive"
   ])
   .config(['$routeProvider', '$resourceProvider', 'cfpLoadingBarProvider', '$locationProvider',
       function($routeProvider, $resourceProvider, cfpLoadingBarProvider, $locationProvider){
