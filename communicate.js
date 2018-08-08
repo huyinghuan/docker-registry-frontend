@@ -39,6 +39,18 @@ function parseAuthenticate(authenticate){
 }
 
 
+function connectAuthServer(username, password, auth){
+    return new Promise((resolve, reject)=>{
+        request({
+            url: auht.realm,
+            headers:{
+                
+            }
+        })
+
+    })
+}
+
 exports.login = async (username, password)=>{
     let registryServer  = config.registry    
     let result = await verityVersion()
@@ -48,6 +60,7 @@ exports.login = async (username, password)=>{
     let auth = parseAuthenticate(result.data)
     
     let realm = auth["realm"]
-    
+
+
 
 }
