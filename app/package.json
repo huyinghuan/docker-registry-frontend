@@ -1,0 +1,22 @@
+{
+  "name": "docker-registry-ui",
+  "version": "1.0",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "silky-version": "2.6.9",
+  "silky-plugin": {},
+  "silky": {
+    "port": 14422,
+    "index": "index.html",
+    "autoindex": true
+  },
+  "silky-pubPath": "node_modules",
+  "silky-build": {
+    "outdir": "./build",
+    "ignore": [
+      "node_modules",
+      "(\\/\\.[^/]+)$"
+    ]
+  }
+}

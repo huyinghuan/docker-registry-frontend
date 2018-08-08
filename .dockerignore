@@ -1,9 +1,0 @@
-node_modules
-dist
-.tmp
-.saas-cache
-bower_components
-screenshots
-*~
-*.swp
-develop
