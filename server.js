@@ -3,7 +3,7 @@ const path = require('path')
 const cookieSession = require('cookie-session')
 const config = require('./config')
 const app = express()
-const http_proxy = require('http-proxy').createProxyServer({});
+const proxy = require("http-proxy").createServer({target: config.registry})
 const authServer = require('./communicate-with-auth-server')
 const bodyParser = require('body-parser');
 app.set('trust proxy', 1)
@@ -38,25 +38,23 @@ app.post("/api/userinfo", async (req, resp)=>{
         resp.end(e)
     }
 })
-app.use("/v2", async (req, resp)=>{
+app.all("/v2/*", (req, resp)=>{
     if(!config.auth){
-        http_proxy.web(req, resp, {target: config.registry}, function(e){
-            resp.status(500)
-            resp.end()
-        })
+        proxy.web(req, resp)
         return
     }
     let username = req.session.username || ""
     let password = req.session.password || ""
-    try{
-        let resource =  await authServer(username, password, req.originalUrl)
+    authServer(username, password, req.originalUrl).then((resource)=>{
         resp.json(resource)
-    }catch(e){
+    }).catch((e)=>{
         resp.status(500)
         resp.send(e)
-    }    
+    })
 });
+
 app.use("*", function(req, resp) {
     resp.sendFile(path.join(__dirname, "app/index.html"))
 });
-app.listen(5001)
+console.log("listen: http://127.0.0.1:"+config.port)
+app.listen(config.port)

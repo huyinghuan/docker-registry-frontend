@@ -40,7 +40,7 @@ angular.module('home-top-nav-directive', ['ngResource'])
       replace: true,
       link:($scope)=>{
         $scope.$on("$routeChangeStart", (e, next, current)=>{
-          if(current && current.$$route.originalPath == "/login"){
+          if(current && current.$$route && current.$$route.originalPath == "/login"){
             loadUserInfo()
           }
         })
