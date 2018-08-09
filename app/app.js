@@ -37,7 +37,8 @@ angular
     'smart-table',
     'angular.filter',
     'ui.checkbox',
-    "home-top-nav-directive"
+    "home-top-nav-directive",
+    "login-controller"
   ])
   .config(['$routeProvider', '$resourceProvider', 'cfpLoadingBarProvider', '$locationProvider',
       function($routeProvider, $resourceProvider, cfpLoadingBarProvider, $locationProvider){
@@ -53,6 +54,10 @@ angular
     $resourceProvider.defaults.stripTrailingSlashes = false;
 
     $routeProvider.
+      when("/login", {
+        templateUrl: 'login.html',
+        controller: 'LoginController',
+      }).
       when('/home', {
         templateUrl: 'home.html',
         controller: 'HomeController',

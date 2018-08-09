@@ -21,8 +21,8 @@ const template = `
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{getUsername(username)}} <span class="caret"></span></a>
         
         <ul class="dropdown-menu">
-          <li ng-if="logined"><a href="#">注销</a></li>
-          <li ng-if="!logined"><a href="#">登陆</a></li>
+          <li ng-if="logined"><a ng-click=signout()>Sign out</a></li>
+          <li ng-if="!logined"><a href="/login">Sign In</a></li>
         </ul>
         
       </li>
@@ -39,24 +39,33 @@ angular.module('home-top-nav-directive', ['ngResource'])
       template: template,
       replace: true,
       link:($scope)=>{
-        
+        $scope.$on("$routeChangeStart", (e, next, current)=>{
+          if(current && current.$$route.originalPath == "/login"){
+            loadUserInfo()
+          }
+        })
         $scope.username = ""
         $scope.logined = false
         $scope.getUsername = (name)=>{
             if(name == ""){
-                return "未登陆"
+                return "Guest"
             }
             return name
-        } 
+        }
+        $scope.signout = ()=>{
+          $resource("/api/userinfo").remove(()=>{
+            loadUserInfo()
+          })
+        }
         var loadUserInfo = ()=>{
-            $resource("/api/userinfo").get((userinfo)=>{
-                $scope.username = userinfo.username
-                if(userinfo.username){
-                    $scope.logined = true
-                }else{
-                    $scope.logined = false
-                }
-            })
+          $resource("/api/userinfo").get((userinfo)=>{
+              $scope.username = userinfo.username
+              if(userinfo.username){
+                  $scope.logined = true
+              }else{
+                  $scope.logined = false
+              }
+          })
         }
         loadUserInfo()
       }
