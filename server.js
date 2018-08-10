@@ -14,6 +14,7 @@ app.use(cookieSession({
     secure: false , expires:  new Date(Date.now() + 1000 * 60 * 48), maxAge: 1000 * 60 * 48
   }))
 app.use(express.static('app'))
+
 app.use(bodyParser.json())
 app.get("/api/userinfo", (req, resp)=>{
     let username = req.session.username || ""
@@ -24,19 +25,18 @@ app.delete("/api/userinfo", (req, resp)=>{
     resp.end()
 })
 
-app.post("/api/userinfo", async (req, resp)=>{
+app.post("/api/userinfo", (req, resp)=>{
     let username = req.body.username
     let password = req.body.password
-    try{
-        authServer(username, password, "/v2/")
+    authServer(username, password, "/v2/").then(()=>{
         req.session.username = username
         req.session.password = password
         resp.status(200)
         resp.end()
-    }catch(e){
+    }).catch((e)=>{
         resp.status(403)
-        resp.end(e)
-    }
+        resp.end(e.toString())
+    })
 })
 app.all("/v2/*", (req, resp)=>{
     if(!config.auth){
@@ -56,5 +56,6 @@ app.all("/v2/*", (req, resp)=>{
 app.use("*", function(req, resp) {
     resp.sendFile(path.join(__dirname, "app/index.html"))
 });
-console.log("listen: http://127.0.0.1:"+config.port)
+
+console.log("visit: http://127.0.0.1:"+config.port)
 app.listen(config.port)

@@ -41,7 +41,7 @@ angular.module('login-controller', ['ui.bootstrap', 'ngResource'])
         $location.url("/home");
       }).error((data, status)=>{
         $scope.fobbidSign = false
-        toastr(data, status)
+        toastr.error(data, status)
       })
     }
   }]);

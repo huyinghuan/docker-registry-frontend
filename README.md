@@ -5,7 +5,7 @@ Fork from `https://github.com/kwk/docker-registry-frontend`
 
 ## docker-compose
 
-```
+```docker-compose
 version: "2.1"
 services:
   register-ui:
@@ -18,13 +18,14 @@ services:
     ports:
       - "5001:5001"
 ```
+
 and then run `docker-compose up` , open `http://localhost:5001`. 
 
 Set `NV_DOCKER_REGISTRY_UI_AUTH=false` if you don't need auth, or use `https://github.com/kwk/docker-registry-frontend`
 
 ## How to developement
 
-```
+```bash
 npm install -g bower
 git clone https://github.com/huyinghuan/docker-registry-frontend.git
 cd docker-registry-frontend
@@ -39,5 +40,4 @@ maybe  you need modify `config.js`
 
 ## where is auth server
 
-see https://github.com/huyinghuan/docker_auth
-
+see `https://github.com/huyinghuan/docker_auth`
