@@ -5,7 +5,7 @@ services:
     container_name: "private-registry-ui"
     environment:
       - ENV_DOCKER_REGISTRY_SERVER=http://172.28.210.141:5000
-      - ENV_DOCKER_REGISTRY_UI_PORT=5001
       - ENV_DOCKER_REGISTRY_UI_AUTH=false
+      - ENV_DOCKER_REGISTRY_AUTH_SERVER=
     ports:
       - "5001:5001"

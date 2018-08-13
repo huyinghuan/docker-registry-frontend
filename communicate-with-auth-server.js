@@ -30,7 +30,8 @@ function tryToGetRegisterResource(uri){
 function getAuthServerToken(user, pass, jwt){
     let authorization = "Basic " + Buffer.from(user+":"+pass).toString('base64')
     jwt["account"] = user
-    let realm = jwt.realm
+    console.log(jwt.realm)
+    let realm = config.authServer || jwt.realm
     delete jwt["realm"]
     return new Promise((resolve, reject)=>{
         request.post({
