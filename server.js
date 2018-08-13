@@ -17,12 +17,27 @@ app.use(express.static('app'))
 
 app.use(bodyParser.json())
 app.get("/api/userinfo", (req, resp)=>{
-    let username = req.session.username || ""
+    let username = req.session ? (req.session.username || "") : ""
     resp.json({username:username})
 })
 app.delete("/api/userinfo", (req, resp)=>{
     req.session = null
     resp.end()
+})
+app.get("/api/app-mode.json", (req, resp)=>{
+    if(req.session && req.session.username == config.admin){
+        resp.json({
+            "browseOnly": true,
+            "defaultRepositoriesPerPage": 20 ,
+            "defaultTagsPerPage":10
+        })
+    }else{
+        resp.json({
+            "browseOnly": true,
+            "defaultRepositoriesPerPage": 20 ,
+            "defaultTagsPerPage":10
+        })
+    }
 })
 
 app.post("/api/userinfo", (req, resp)=>{

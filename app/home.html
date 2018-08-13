@@ -3,7 +3,41 @@
 </ol>
 
 <div class="jumbotron">
-  <h1>Welcome, to the Docker registry!</h1>
-  <p class="lead">Proudly serving your Docker images.</p>
-  <p><a class="btn btn-lg btn-primary" href="repositories/{{appMode.defaultRepositoriesPerPage}}" role="button"><span class="glyphicon glyphicon-book"></span> Browse repositories</a></p>
+  <h1>The MGTV Docker registry!</h1>
+  <p><a class="btn btn-lg btn-primary" href="repositories/{{appMode.defaultRepositoriesPerPage}}" role="button"><span class="glyphicon glyphicon-book"></span> 浏览仓库</a></p>
+  <hr>
+  <h2>如何使用</h2>
+  <h3>配置</h3>
+  <h4>Linux</h4>
+
+  <p>编辑<pre>/etc/docker/daemon.json</pre>添加</p>
+  <pre>
+    {
+      "allow-nondistributable-artifacts": ["docker.hunantv.com"]
+    }
+  </pre>
+  <h4>Mac</h4>
+  <p>点击顶部菜单栏docker图标 preference -> Daemon ->  Insecure registries里面增加 docker.hunantv.com </p>
+  <pre>
+    {
+      "allow-nondistributable-artifacts": ["docker.hunantv.com"]
+    }
+  </pre>
+  <h4>windows</h4>
+  <p>仅支持win10专业版和企业，操作和mac类似</p>
+  <p>修改完成后，重启docker</p>
+  <hr>
+  <h3>登录仓库</h3>
+  <p>请向RTX:胡瀛寰 申请账户</p>
+  <pre>
+    docker login docker.hunantv.com
+  </pre>
+
+  <h3>推送仓库</h3>
+  <p>先给自己image打上标签</p>
+  <pre>
+    docker tag yourself-image:version  docker.hunantv.com/用户名/image-name:version
+    docker push docker.hunantv.com/用户名/image-name:version
+  </pre>
+  <p>注意目前只可推送自己名下的image， 即打tag时，必须为 <pre>用户名/image-name:tag</pre> 后续开放group模式， 公共image，将推送到<pre>lib</pre>目录下，仅管理员具有权限，如若有公共image需求请联系管理员</p>
 </div>
